@@ -1,0 +1,19 @@
+/* SalesPlay brand — blue from salesplaypos.com (#0b4d92) */
+:root {
+  --ifm-color-primary: #0b4d92;
+  --ifm-color-primary-dark: #0a4583;
+  --ifm-color-primary-darker: #09417c;
+  --ifm-color-primary-darkest: #073566;
+  --ifm-color-primary-light: #0d59a8;
+  --ifm-color-primary-lighter: #0d5db0;
+  --ifm-color-primary-lightest: #0f66be;
+}
+[data-theme='dark'] {
+  --ifm-color-primary: #5b9be0;
+  --ifm-color-primary-dark: #4a8fdc;
+  --ifm-color-primary-darker: #3f88da;
+  --ifm-color-primary-darkest: #2f7ad3;
+  --ifm-color-primary-light: #6ca6e4;
+  --ifm-color-primary-lighter: #77ade6;
+  --ifm-color-primary-lightest: #8dbbeb;
+}

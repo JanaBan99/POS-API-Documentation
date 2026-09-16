@@ -1,0 +1,82 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Brand colours live in src/css/tenants/<tenant>.css (selected by TENANT at build time). */
+:root {
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+[data-theme='dark'] {
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+.navbar__brand {
+  pointer-events:none;
+  cursor:default;
+}
+/* ── API reference: method badges ───────────────────────────────── */
+:root {
+  --api-get: #2e8555;
+  --api-post: #1a73e8;
+  --api-delete: #d93025;
+  --api-put: #e37400;
+}
+.api-endpoint {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  background: var(--ifm-background-surface-color);
+  overflow-x: auto;
+}
+.api-endpoint code {
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+}
+.api-badge {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.api-badge--get { background: var(--api-get); }
+.api-badge--post { background: var(--api-post); }
+.api-badge--delete { background: var(--api-delete); }
+.api-badge--put { background: var(--api-put); }
+.api-required {
+  color: var(--api-delete);
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+/* sidebar: [GET] label */
+.api-method > .menu__link::before {
+  content: 'GET';
+  display: inline-block;
+  min-width: 2.6rem;
+  margin-right: 0.5rem;
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  background: var(--api-get);
+}
+.api-method--post > .menu__link::before { content: 'POST'; background: var(--api-post); }
+.api-method--delete > .menu__link::before { content: 'DEL'; background: var(--api-delete); }
+.api-method--put > .menu__link::before { content: 'PUT'; background: var(--api-put); }
+
+/* ── Code samples: JSON/string values in the brand colour ─────── */
+/* prism-react-renderer sets token colours as inline styles, hence !important */
+.prism-code .token.string { color: var(--ifm-color-primary) !important; }
+[data-theme='dark'] .prism-code .token.string { color: var(--ifm-color-primary-lightest) !important; }

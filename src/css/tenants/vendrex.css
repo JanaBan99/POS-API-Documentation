@@ -1,0 +1,22 @@
+/* Vendrex brand — green #09d83f (platform.vendrex.com), purple #39005b.
+   Links use a deepened green so text stays readable on white (AA);
+   the bright brand green is kept for dark mode and highlights. */
+:root {
+  --ifm-color-primary: #068a28;
+  --ifm-color-primary-dark: #067a24;
+  --ifm-color-primary-darker: #067322;
+  --ifm-color-primary-darkest: #05601c;
+  --ifm-color-primary-light: #07a02f;
+  --ifm-color-primary-lighter: #08b035;
+  --ifm-color-primary-lightest: #09d83f;
+  --ifm-footer-background-color: #39005b;
+}
+[data-theme='dark'] {
+  --ifm-color-primary: #25d857;
+  --ifm-color-primary-dark: #1bc94b;
+  --ifm-color-primary-darker: #17bd45;
+  --ifm-color-primary-darkest: #12b03f;
+  --ifm-color-primary-light: #4ae074;
+  --ifm-color-primary-lighter: #5ee484;
+  --ifm-color-primary-lightest: #7ee99a;
+}
