@@ -14,7 +14,9 @@ try {
 
 // All brand facts come from .env.<TENANT> via tenant.js (single source of truth).
 const { tenant: TENANT, name, imgDir } = profile;
-const footerCopyright = `Copyright © ${new Date().getFullYear()} ${name}. Built with Docusaurus.`;
+// Owner line: who maintains the docs and how to reach them (PLAN_gio.md Phase 5). The
+// email is written as SalesPlay and rewritten per brand by the host rule in tenant.js.
+const footerCopyright = replaceText(`Copyright © ${new Date().getFullYear()} ${name}. Documentation maintained by the ${name} developer team — <a href="mailto:support@salesplaypos.com">support@salesplaypos.com</a>.`);
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -65,8 +67,10 @@ const config = {
           sidebarPath: './sidebars.js',
           routeBasePath: '/',
           beforeDefaultRemarkPlugins: [remarkTenantReplace],
+          showLastUpdateTime: true, // from git history — a freshness signal for readers and crawlers
         },
         blog: false,
+        sitemap: { lastmod: 'date', changefreq: null, priority: null },
         theme: {
           customCss: ['./src/css/custom.css', `./src/css/tenants/${TENANT}.css`],
         },

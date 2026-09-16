@@ -351,6 +351,7 @@ const sidebars = {
 
 
     'glossary',
+    'changelog',
   ],
 };
 

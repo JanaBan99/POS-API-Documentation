@@ -14,6 +14,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 import sidebars from '../../sidebars.js';
 import { profile, replaceText } from '../../tenant.js';
 
@@ -53,6 +54,7 @@ function jsonLd(d, site, abs) {
   const graph = [website,
     { '@type': d.isRef ? ['TechArticle', 'APIReference'] : 'TechArticle', '@id': `${url}#article`, headline: d.title,
       description: d.description, url, inLanguage: 'en', isPartOf: { '@id': `${site}/#website` },
+      ...(d.modified ? { dateModified: d.modified } : {}),
       about: { '@type': 'SoftwareApplication', name: `${profile.name} POS`, applicationCategory: 'BusinessApplication' },
       ...(d.isRef ? { targetPlatform: 'REST', documentation: `${site}/api_spec.json` } : {}) },
   ];
@@ -78,8 +80,10 @@ function readDoc(id) {
     .replace(/\n{3,}/g, '\n\n')
     .trim();
   const firstParagraph = body.split('\n').find((l) => l && !/^[#>|:`\-*]/.test(l)) || '';
+  let modified;
+  try { modified = execSync(`git log -1 --format=%cI -- "docs/${id}.md"`, { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() || undefined; } catch { /* not a git checkout */ }
   return {
-    id,
+    id, modified,
     isRef: /^API-reference\/[^/]+\/[^/]+$/.test(id) && !id.startsWith('API-reference/webhooks/overview'),
     title: meta.title || id,
     url: meta.slug || `/${id}`,
