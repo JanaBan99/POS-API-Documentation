@@ -2,7 +2,7 @@
 
 *How one set of documentation files becomes three separate websites (SalesPlay, Vendrex, Sellmo), and how to operate, change and extend it. Written for anyone on the team — you don't need to be a programmer to follow it.*
 
-Last updated: 2026-09-15
+Last updated: 2026-09-16
 
 ---
 
@@ -158,7 +158,7 @@ TENANT_IMG_DIR=selmo
 
 ### Rules for these files
 
-- **They are committed to git.** They contain only public web addresses and names — nothing secret. A fresh checkout must be able to build.
+- **They are not committed to git** (`.gitignore` excludes `.env.*`). A fresh clone has none of them: copy `.env.example` to `.env.salesplay`, `.env.vendrex` and `.env.sellmo` and fill in the values — the README lists every value per brand. The build stops with a clear message if a file or a line is missing.
 - **Never put a password, API token or key in them.** If a script needs a secret (e.g. the endpoint-checker's `SP_TOKEN`), it reads it from your shell environment or from a personal `.env` file (no suffix), which is git-ignored and never committed.
 - **One fact, one place.** If a brand's Backoffice moves to a new address, change one line in one file. No code changes.
 - **Every line is required.** If one is missing, the build stops immediately with `TENANT_BACKOFFICE_URL is missing — check .env.sellmo` rather than producing a site with a blank in it.
@@ -442,7 +442,7 @@ build/<brand>/                              build output, one folder per brand, 
 2. **Never type another brand's name or address in a page**, except inside a `<TenantBlock>` that hides it from all other brands.
 3. **Same file names in every image folder.** Reference images as `/img/<name>` — never with a folder.
 4. **Brand facts go in `.env.<brand>`**, colours go in `src/css/tenants/<brand>.css`. Nothing brand-specific goes in JavaScript.
-5. **No secrets in committed files.** `.env.<brand>` is public; your personal `.env` is not.
+5. **No secrets in committed files.** Neither the `.env.<brand>` files nor your personal `.env` are committed; only `.env.example` (a template) is.
 6. **Restart the dev server** after touching config, `tenant.js`, `.env.*`, `package.json` or plugins.
 7. **Each brand builds to its own folder** — upload `build/<brand>/`, not `build/`.
 

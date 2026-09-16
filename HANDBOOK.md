@@ -356,7 +356,8 @@ All on 2026-09-14.
 | `gen_api_docs.py` | page generator; `PAGES` map; common error responses | yes (carefully) |
 | `convert_spec.py` | writes `static/api_spec.json` per brand | rarely |
 | `sidebars.js` | navigation | yes |
-| `.env.salesplay`, `.env.vendrex`, `.env.sellmo` | all brand facts (name, URLs, title, favicon, image folder) — public values only | yes; restart server after |
+| `.env.salesplay`, `.env.vendrex`, `.env.sellmo` | all brand facts (name, URLs, title, favicon, image folder) — **not committed**; create from `.env.example` (see README) | yes; restart server after |
+| `.env.example` | template for the three brand files | |
 | `tenant.js` | reads the `.env` file; text-replacement rules; image resolver | rarely |
 | `docusaurus.config.js` | site config, search; brand values from `tenant.js` | yes; restart server after |
 | `src/plugins/remark-tenant-replace.js` | brand text replacement | rarely |

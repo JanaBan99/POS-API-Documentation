@@ -9,8 +9,11 @@
 .cache-loader
 
 # Misc
-# personal overrides (e.g. SP_TOKEN); the committed .env.<brand> files are NOT ignored
+# brand configuration files (.env.salesplay, .env.vendrex, .env.sellmo) and personal overrides (.env)
+# are NOT committed — copy .env.example to create them (see README.md)
 .env
+.env.*
+!.env.example
 .DS_Store
 .env.local
 .env.development.local
