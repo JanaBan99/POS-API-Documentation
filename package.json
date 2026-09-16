@@ -18,7 +18,11 @@
     "start:vendrex": "cross-env TENANT=vendrex DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-vendrex docusaurus start --port 3001",
     "build:sellmo": "cross-env TENANT=sellmo DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-build-sellmo docusaurus build --out-dir build/selmo",
     "start:sellmo": "cross-env TENANT=sellmo DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-sellmo docusaurus start --port 3002",
-    "preview:sellmo": "npm run build:sellmo && docusaurus serve --dir build/selmo --port 3005 --no-open"
+    "preview:sellmo": "npm run build:sellmo && docusaurus serve --dir build/selmo --port 3005 --no-open",
+    "check": "npm run check:salesplay && npm run check:vendrex && npm run check:sellmo",
+    "check:salesplay": "python tools/gio_check.py salesplay",
+    "check:vendrex": "python tools/gio_check.py vendrex",
+    "check:sellmo": "python tools/gio_check.py sellmo"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.0",

@@ -74,6 +74,9 @@ function readDoc(id) {
     if (m) meta[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
   }
   const body = raw.slice(fm ? fm[0].length : 0)
+    // <TenantBlock hide="x"> / hide={['x','y']}: drop the block when this brand is hidden, else keep its content
+    .replace(/<TenantBlock hide=(?:"([^"]+)"|\{\[([^\]]+)\]\})>([\s\S]*?)<\/TenantBlock>/g, (_, one, many, inner) =>
+      (one ? [one] : many.split(',').map((s) => s.trim().replace(/['"]/g, ''))).includes(profile.tenant) ? '' : inner)
     .replace(/^import .*$/gm, '')                 // MDX imports
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')         // {/* comments */}
     .replace(/<\/?(?:[A-Z]\w*|div)\b[^>]*>/g, '') // JSX tags: <TenantImage …/>, <Tabs>, <div …>
