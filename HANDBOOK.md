@@ -372,3 +372,5 @@ All on 2026-09-14.
 | `PLAN_api_reference.md` | the executed migration plan (history) | |
 | `DOCS_IMPROVEMENT_PLAN.md`, `DOCS_BACKLOG.md` | what to improve next | |
 | `PLAN_tenant_assets_env.md` | the executed image-folder + `.env` plan (history) | |
+| `PLAN_gio.md` | the executed AI-discoverability plan (history + §11 register) | |
+| `RECORDED_ISSUES.md` | register of wrong/unverified facts found but deliberately not fixed, with file + line | resolve, then remove entries |
