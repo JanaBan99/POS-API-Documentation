@@ -92,6 +92,7 @@ Where a Backoffice differs (menu names), the guide text has one paragraph per br
 | `npm run preview` / `preview:vendrex` / `preview:sellmo` | build, then serve the result on :3003 / :3004 / :3005 — the only way to test search locally |
 | `python gen_api_docs.py` | regenerate the 53 endpoint pages from `api_spec.yaml` |
 | `python convert_spec.py` | (runs automatically on every start/build) writes `static/api_spec.json` for the brand |
+| `npm run check` / `check:<brand>` | after a build: fails if any file mentions another brand, a machine file is missing, or a page lacks a `description` / has an emoji heading (`tools/gio_check.py`) |
 | `npx docusaurus clear` | wipe caches — run this if a server shows the wrong brand's text or an rspack "Panic" |
 
 **Rule:** after any change to `docusaurus.config.js`, `tenant.js`, a `.env.*` file, `package.json`, `sidebars.js` or anything in `src/plugins/`, stop and restart the dev server. Hot reload covers only content and CSS.
