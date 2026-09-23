@@ -41,7 +41,7 @@ Legend — ✅ **verified**: real response compared field-by-field with the spec
 | `GET /purchase_orders` | ⚠️ | Needs a PO created in the Backoffice. |
 | `GET /merchant` | ✅ | Path corrected from `/merchants`. |
 
-**How to re-verify:** the checker script used for this table lives outside the repo today. Backlog item 4.1 moves it into `tools/check_api.py` so anyone can run `SP_TOKEN=… python tools/check_api.py` and get the same table.
+**How to re-verify:** the checker script used for this table lives outside the repo today. Backlog item 4.1 moves it into `tools/check_api.mjs` so anyone can run `SP_TOKEN=… node tools/check_api.mjs` and get the same table.
 
 **Facts confirmed by the live API that must not be "corrected" back** (they contradict the old docs and the Redoc site):
 
@@ -73,7 +73,7 @@ Each row: what to change → why (best practice it serves) → done when.
 | S6 | `docusaurus.config.js`: move `onBrokenMarkdownLinks` under `markdown.hooks` (build prints a deprecation warning every time). | Keeps the build output clean so real warnings are noticed. | Build prints no deprecation warning. |
 | S7 | Delete `docs/API-reference/Webhooks.md` ("Webhook API Suite", 420 lines) — orphaned; not in the sidebar; duplicates the generated webhook pages and the webhooks guide. | Duplicate content drifts. | File removed; `guides/webhooks-guide.md` links point to the generated pages. |
 | S8 | Delete `docs/guides/authentication.md` after merging anything unique into `personal-access-tokens.md` / `oauth.md` — it is a third copy of the same topic and is not in the sidebar. | Same. | One page per auth method, both in the sidebar under *Get Your Credentials*. |
-| S9 | Add "Last verified: YYYY-MM-DD" to the generated reference pages (stamped by `gen_api_docs.py`). | Readers can judge freshness; team can see what's stale. | Every generated page shows the date of the last checker run. |
+| S9 | Add "Last verified: YYYY-MM-DD" to the generated reference pages (stamped by `gen_api_docs.mjs`). | Readers can judge freshness; team can see what's stale. | Every generated page shows the date of the last checker run. |
 
 ### 2.2 Introduction (`docs/Introduction.md`)
 
@@ -165,7 +165,7 @@ Each row: what to change → why (best practice it serves) → done when.
 |---|---|---|---|
 | V1 | The page describes a deprecation policy and a timeline example — confirm with the API team that this is the real policy, or mark it as "planned". | Don't document a promise the API team hasn't made. | Confirmed or reworded. |
 
-### 2.13 Generated reference pages (`gen_api_docs.py` / `api_spec.yaml`)
+### 2.13 Generated reference pages (`gen_api_docs.mjs` / `api_spec.yaml`)
 
 | # | Edit | Why | Done when |
 |---|---|---|---|
@@ -186,7 +186,7 @@ Each row: what to change → why (best practice it serves) → done when.
 4. **Say what breaks.** Every page that can fail lists the specific error the reader will see and what to do.
 5. **Sentence case, no emoji in headings, ≤ 65 characters per line of prose, one term per concept.**
 6. **Write as SalesPlay.** Never type "Vendrex" or "Sellmo" in a page — the build substitutes them. Brand-specific steps go in `<TenantBlock>`.
-7. **Never hand-edit generated pages** (`docs/API-reference/<group>/*.md`). Edit `api_spec.yaml`, run `python gen_api_docs.py`.
+7. **Never hand-edit generated pages** (`docs/API-reference/<group>/*.md`). Edit `api_spec.yaml`, run `node gen_api_docs.mjs`.
 8. **Screenshots:** ~1900 px wide, light theme, no personal data, one per step, both brands.
 9. **Links:** relative `.md` links inside `docs/`; never `/docs/…` (the site is served at `/`).
 10. **Front matter:** `title`, `sidebar_label`, `description` on every page.

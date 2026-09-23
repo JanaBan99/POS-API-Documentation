@@ -328,11 +328,11 @@ Everything that is *not* brand colour (badges, endpoint bar, layout) lives in `s
 
 ## 9. The API reference file
 
-`api_spec.yaml` (the OpenAPI description of the API) is also written as SalesPlay. On every start and build, `convert_spec.py` applies the same nine rules from §5 to it and writes `static/api_spec.json` for the current brand. That's how the Sellmo site's spec says `servers.url: https://api.backofficewebportal.com/v1.0/`.
+`api_spec.yaml` (the OpenAPI description of the API) is also written as SalesPlay. On every start and build, `docusaurus.config.js` applies the same nine rules from §5 to it — the very same `replaceText` from `tenant.js` that the pages go through — and writes `static/api_spec.json` for the current brand. That's how the Sellmo site's spec says `servers.url: https://api.backofficewebportal.com/v1.0/`.
 
-The script takes the brand facts from the environment (the site loads them before calling it). If you run it by hand — `python convert_spec.py` or `TENANT=sellmo python convert_spec.py` — it reads the `.env.<brand>` file itself, so it works standalone too.
+Because that happens inside the config rather than in a separate script, there is no second copy of the rule list to keep in sync: change a rule in `tenant.js` and the spec follows automatically.
 
-The 53 endpoint pages under `docs/API-reference/` are generated from the same YAML by `python gen_api_docs.py`; they are written as SalesPlay and go through the normal page replacement. Never edit them by hand.
+The 53 endpoint pages under `docs/API-reference/` are generated from the same YAML by `node gen_api_docs.mjs`; they are written as SalesPlay and go through the normal page replacement. Never edit them by hand.
 
 ---
 
@@ -359,7 +359,7 @@ Edit `src/css/tenants/<brand>.css` (§8).
 `TENANT_POSTMAN_URL` in the `.env` file.
 
 **…check that a build has no brand leaks?**
-Run `npm run check` after building (or `npm run check:sellmo` for one brand). It fails with one line per problem if any built file mentions another brand, a machine file (`robots.txt`, `llms.txt`, `llms-full.txt`, `sitemap.xml`, `api_spec.json`) is missing, a link in `llms.txt` points nowhere, or a page has no `description`, more than one H1, or an emoji heading. The script is `tools/gio_check.py`.
+Run `npm run check` after building (or `npm run check:sellmo` for one brand). It fails with one line per problem if any built file mentions another brand, a machine file (`robots.txt`, `llms.txt`, `llms-full.txt`, `sitemap.xml`, `api_spec.json`) is missing, a link in `llms.txt` points nowhere, or a page has no `description`, more than one H1, or an emoji heading. The script is `tools/gio_check.mjs`.
 
 **…use a secret in a script without committing it?**
 Put it in your shell (`$env:SP_TOKEN = '…'`) or in a personal `.env` file at the project root. `.env` is git-ignored; `.env.<brand>` files are not, so never put secrets in those.
@@ -406,14 +406,13 @@ tenant.js                                   reads .env.<TENANT>; exports the bra
 docusaurus.config.js                        site settings; takes title, URL, favicon, logo from tenant.js
 src/plugins/remark-tenant-replace.js        applies the text rules and image resolution to every page as it compiles
 src/plugins/gio-files.js                    after each build, writes robots.txt, llms.txt, llms-full.txt and injects JSON-LD structured data into build/<brand>/ (for search engines and AI assistants)
-tools/gio_check.py                          `npm run check` — post-build checks: brand leaks, machine files, descriptions, headings
+tools/gio_check.mjs                         `npm run check` — post-build checks: brand leaks, machine files, descriptions, headings
 src/components/TenantImage.js               the <TenantImage> tag (a plain image; the path was resolved at build time)
 src/components/TenantBlock.js               the <TenantBlock hide="…"> tag
 src/css/custom.css                          shared styling
 src/css/tenants/<brand>.css                 that brand's colours (§8)
 static/img/<brand folder>/                  that brand's screenshots, logo, favicon (§6)
 static/img/shared/                          brand-neutral screenshots (Postman)
-convert_spec.py                             api_spec.yaml → static/api_spec.json for the brand (§9)
 package.json                                the start:* / build:* / preview:* commands (§3)
 build/<brand>/                              build output, one folder per brand, not committed (§12)
 ```

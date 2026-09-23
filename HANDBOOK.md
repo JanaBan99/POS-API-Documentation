@@ -90,9 +90,8 @@ Where a Backoffice differs (menu names), the guide text has one paragraph per br
 | `npm run start:vendrex` / `start:sellmo` | same for the other brands on :3001 / :3002 (can run at the same time) |
 | `npm run build` / `build:vendrex` / `build:sellmo` | production build into `build/salesplay/`, `build/vendrex/`, `build/selmo/` (each brand has its own output and generated-files dir, so a build never overwrites another brand or disturbs a running dev server) |
 | `npm run preview` / `preview:vendrex` / `preview:sellmo` | build, then serve the result on :3003 / :3004 / :3005 — the only way to test search locally |
-| `python gen_api_docs.py` | regenerate the 53 endpoint pages from `api_spec.yaml` |
-| `python convert_spec.py` | (runs automatically on every start/build) writes `static/api_spec.json` for the brand |
-| `npm run check` / `check:<brand>` | after a build: fails if any file mentions another brand, a machine file is missing, or a page lacks a `description` / has an emoji heading (`tools/gio_check.py`) |
+| `node gen_api_docs.mjs` | regenerate the 53 endpoint pages from `api_spec.yaml` |
+| `npm run check` / `check:<brand>` | after a build: fails if any file mentions another brand, a machine file is missing, or a page lacks a `description` / has an emoji heading (`tools/gio_check.mjs`) |
 | `npx docusaurus clear` | wipe caches — run this if a server shows the wrong brand's text or an rspack "Panic" |
 
 **Rule:** after any change to `docusaurus.config.js`, `tenant.js`, a `.env.*` file, `package.json`, `sidebars.js` or anything in `src/plugins/`, stop and restart the dev server. Hot reload covers only content and CSS.
@@ -117,8 +116,7 @@ my-docs/
 │                                 + get-webhook.md, create-webhook.md, delete-webhook.md (GENERATED)
 │      categories/ … merchant/    one folder per collection, GENERATED endpoint pages
 ├─ api_spec.yaml                  THE source of truth for the reference (OpenAPI 3.0, 53 operations)
-├─ gen_api_docs.py                turns api_spec.yaml into the endpoint pages
-├─ convert_spec.py                writes static/api_spec.json per brand
+├─ gen_api_docs.mjs               turns api_spec.yaml into the endpoint pages
 ├─ sidebars.js                    left-hand navigation (order, grouping, method badges)
 ├─ docusaurus.config.js           site config, search; brand values come from tenant.js
 ├─ src/
@@ -143,7 +141,7 @@ my-docs/
 ## 5. How the API reference pages are made
 
 1. **`api_spec.yaml`** describes every endpoint: path, method, description, request fields (type, required, description, enum, example), and responses. It started as a copy of the file behind developer.salesplay.com, merged with the newer live version, and has since been corrected by calling the real API (§8).
-2. **`python gen_api_docs.py`** reads the spec and writes one Markdown page per operation into `docs/API-reference/<group>/<slug>.md`. The mapping of operation → file name → page title is the `PAGES` table at the top of the script.
+2. **`node gen_api_docs.mjs`** reads the spec and writes one Markdown page per operation into `docs/API-reference/<group>/<slug>.md`. The mapping of operation → file name → page title is the `PAGES` table at the top of the script.
 3. Each generated page has the same layout (modelled on PayPal's reference):
    - title, description, **method badge + full URL**
    - Authorization line
@@ -184,10 +182,10 @@ Full detail with examples: `TENANT_GUIDE.md`.
 ## 7. Everyday tasks (how do I…)
 
 **…fix a wrong field description on an endpoint page?**
-Edit the field's `description` in `api_spec.yaml` → `python gen_api_docs.py` → check the page in the dev server.
+Edit the field's `description` in `api_spec.yaml` → `node gen_api_docs.mjs` → check the page in the dev server.
 
 **…add a new endpoint?**
-Add the path/operation to `api_spec.yaml` → add a line to `PAGES` in `gen_api_docs.py` (doc id, method, path, title) → run the script → add the doc id to `sidebars.js` in the right category with `className: 'api-method api-method--get'` → add a row to `docs/API-reference/index.md` if it's a new collection.
+Add the path/operation to `api_spec.yaml` → add a line to `PAGES` in `gen_api_docs.mjs` (doc id, method, path, title) → run the script → add the doc id to `sidebars.js` in the right category with `className: 'api-method api-method--get'` → add a row to `docs/API-reference/index.md` if it's a new collection.
 
 **…change a guide?**
 Edit the file under `docs/guides/`. Write "SalesPlay". Use `<TenantImage>` for screenshots and `<TenantBlock>` for brand-specific steps. Links between pages are relative `.md` links (`../API-reference/pagination.md`), never `/docs/…`.
@@ -353,8 +351,7 @@ All on 2026-09-14.
 | File | Purpose | Edit? |
 |---|---|---|
 | `api_spec.yaml` | source of truth for the API reference | yes — then regenerate |
-| `gen_api_docs.py` | page generator; `PAGES` map; common error responses | yes (carefully) |
-| `convert_spec.py` | writes `static/api_spec.json` per brand | rarely |
+| `gen_api_docs.mjs` | page generator; `PAGES` map; common error responses | yes (carefully) |
 | `sidebars.js` | navigation | yes |
 | `.env.salesplay`, `.env.vendrex`, `.env.sellmo` | all brand facts (name, URLs, title, favicon, image folder) — **not committed**; create from `.env.example` (see README) | yes; restart server after |
 | `.env.example` | template for the three brand files | |

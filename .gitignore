@@ -29,4 +29,3 @@ yarn-error.log*
 
 # generated per brand on every build/start
 /static/api_spec.json
-__pycache__/
