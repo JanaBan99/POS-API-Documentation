@@ -967,3 +967,7 @@ public ResponseEntity<Map<String, String>> destroy(@PathVariable String id) {
 
 - **[Process & Manage Orders](order-integration)** — Create orders using your products.
 - **[Generate Receipts](receipt)** — Generate receipts from completed orders.
+- **[Process & Manage Inventory](/category/inventory)** — Get Inventory, Update Inventory.
+- **[Process & Manage Online Orders](/category/online-orders)** — Place Online Order, Get Online Order Status, Cancel Online Order.
+- **[Process & Manage POS Devices](/category/pos-devices)** — Get POS Devices.
+- **[Every product endpoint](/category/products)** — the full `/products` reference, with fields, parameters and responses.

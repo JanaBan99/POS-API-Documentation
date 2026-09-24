@@ -9,8 +9,6 @@ const sidebars = {
       label: 'How to Guides',
       collapsed: true,
       items: [
-        'guides/getting-started',
-        'guides/versioning',
         {
           type: 'category',
           label: 'Get Your Credentials',
@@ -20,8 +18,18 @@ const sidebars = {
             'guides/oauth',
           ],
         },
-        'guides/product',
+        {
+          type: 'category',
+          label: 'Getting Started',
+          link: { type: 'doc', id: 'guides/getting-started' },
+          collapsed: true,
+          items: [
+            'guides/shops',
+            'guides/product',
+          ],
+        },
         'guides/going-live',
+        'guides/versioning',
         'guides/errors-guide',
       ],
     },

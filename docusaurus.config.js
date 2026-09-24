@@ -118,7 +118,13 @@ const config = {
       colorMode: {
         respectPrefersColorScheme: true,
       },
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true,
+        },
+      },
       navbar: {
+        title: 'Developer Portal',
         logo: {
           alt: `${name} Logo`,
           src: `img/${imgDir}/logo.png`,

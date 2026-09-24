@@ -190,7 +190,61 @@ Full rules and explanations: `TENANT_GUIDE.md` §15, `HANDBOOK.md` §13.
 
 ---
 
-## 8. Troubleshooting
+## 8. Producing the handover zip
+
+DevOps deploys from a zip, not from git — see [DEPLOYMENT.md](DEPLOYMENT.md) for their side. Build the zip from a **clean, committed working tree** so the page dates come out right.
+
+```powershell
+$src   = "D:\nvison\Documentation\my-docs\my-docs"
+$stage = "$env:TEMP\docs-handover\pos-api-docs"
+$zip   = "$env:USERPROFILE\Desktop\pos-api-docs-$(Get-Date -Format yyyy-MM-dd).zip"
+
+Remove-Item -Recurse -Force (Split-Path $stage) -ErrorAction SilentlyContinue
+robocopy $src $stage /E /NFL /NDL /NJH /NJS /NP `
+  /XD node_modules build .docusaurus .docusaurus-build .docusaurus-build-sellmo `
+      .docusaurus-build-vendrex .docusaurus-sellmo .docusaurus-vendrex `
+  /XF api_spec.json *.pdf *.zip
+& "$env:SystemRoot\System32\tar.exe" -a -c -f $zip -C (Split-Path $stage) "pos-api-docs"
+Get-FileHash $zip -Algorithm SHA256
+```
+
+`robocopy` exiting with code **1** means "files copied" — that is success, not an error.
+
+Send DevOps the zip **and the SHA256** the last line prints; §6 of their guide has them verify it.
+
+### Two things that must be in the zip
+
+- **`.git/`** — the build reads it for each page's "Last updated" date. Without it the build stops with `Error: This Docusaurus site is outside any Git worktree`. It adds about 5 MB.
+- **`.env.salesplay`, `.env.vendrex`, `.env.sellmo`** — git-ignored, so they are the one thing a clone cannot provide. They hold public URLs and names only, no secrets.
+
+### Do not use `Compress-Archive`
+
+PowerShell's `Compress-Archive` **silently skips hidden folders**, so the zip it produces has no `.git` and the build fails on the server. Windows' bundled `tar.exe` (used above) includes it. Note that in Git Bash, `tar` resolves to GNU tar, which cannot write zip files at all — call `System32\tar.exe` explicitly, as above.
+
+### Verify before sending
+
+```powershell
+$names = & "$env:SystemRoot\System32\tar.exe" -tf $zip
+"entries      : $($names.Count)"                              # ~631
+".git entries : $(@($names -match '/\.git/').Count)"          # must be > 0
+".env entries : $(@($names -match '\.env\.').Count)"           # must be 4 (3 brands + .env.example)
+"node_modules : $(@($names -like '*node_modules*').Count)"    # must be 0
+```
+
+Expected output, and what a good zip looks like:
+
+```
+entries      : 631
+.git entries : 440
+.env entries : 4
+node_modules : 0
+```
+
+Roughly 630 files, 6–7 MB.
+
+---
+
+## 9. Troubleshooting
 
 | Symptom | Fix |
 |---|---|

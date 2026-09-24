@@ -80,3 +80,11 @@
 /* prism-react-renderer sets token colours as inline styles, hence !important */
 .prism-code .token.string { color: var(--ifm-color-primary) !important; }
 [data-theme='dark'] .prism-code .token.string { color: var(--ifm-color-primary-lightest) !important; }
+
+/* ── Sidebar: make the current page obvious ────────────────────── */
+/* Docusaurus already gives the parent category .menu__link--active; the
+   accent bar marks the leaf page you are actually on. */
+.menu__link--active:not(.menu__link--sublist) {
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--ifm-color-primary);
+}
