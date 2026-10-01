@@ -17,3 +17,17 @@
   --ifm-color-primary-lighter: #77ade6;
   --ifm-color-primary-lightest: #8dbbeb;
 }
+
+/* Navbar gradient: salesplay.com .headertopmpc gradient (#218cc3 → #0b4d92), each stop mixed 15% with
+   white so the logo is not washed out on it. 15% is the limit: the white title stays at 3:1. */
+:root { --brand-topbar: linear-gradient(79deg, #429dcc 8%, #3068a2 59%); }
+
+/* Type measured on salesplay.com (computed styles, 1920px): body text is Bootstrap's
+   system-ui stack at 16px / 1.5; headings are Inter 500. Inter is loaded in docusaurus.config.js. */
+:root {
+  --ifm-font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif;
+  --ifm-heading-font-family: 'Inter', sans-serif;
+  --ifm-heading-font-weight: 500;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.5;
+}

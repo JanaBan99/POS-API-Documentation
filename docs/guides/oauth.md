@@ -161,7 +161,7 @@ print_r(json_decode($response, true));
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 import java.net.URI;
@@ -186,37 +186,7 @@ System.out.println(response.body());
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.*;
-import org.springframework.util.*;
-
-RestTemplate restTemplate = new RestTemplate();
-
-HttpHeaders headers = new HttpHeaders();
-headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-map.add("client_id", "YOUR_APP_ID");
-map.add("client_secret", "YOUR_APP_SECRET");
-map.add("grant_type", "authorization_code");
-map.add("code", "YOUR_AUTHORIZATION_CODE");
-
-HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-ResponseEntity<String> response = restTemplate.postForEntity(
-    "https://api.salesplaypos.com/v1.0/oauth/token", 
-    request, 
-    String.class
-);
-
-System.out.println(response.getBody());
-```
-
-  </TabItem>
-
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 using System.Net.Http;
@@ -358,7 +328,7 @@ print_r(json_decode($response, true));
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 import java.net.URI;
@@ -383,37 +353,7 @@ System.out.println(response.body());
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.*;
-import org.springframework.util.*;
-
-RestTemplate restTemplate = new RestTemplate();
-
-HttpHeaders headers = new HttpHeaders();
-headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-map.add("client_id", "YOUR_APP_ID");
-map.add("client_secret", "YOUR_APP_SECRET");
-map.add("refresh_token", "YOUR_REFRESH_TOKEN");
-map.add("grant_type", "refresh_token");
-
-HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-ResponseEntity<String> response = restTemplate.postForEntity(
-    "https://api.salesplaypos.com/v1.0/oauth/token", 
-    request, 
-    String.class
-);
-
-System.out.println(response.getBody());
-```
-
-  </TabItem>
-
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 using System.Net.Http;

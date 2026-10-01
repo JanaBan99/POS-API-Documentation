@@ -43,7 +43,7 @@ This is the key that unlocks the API. Without it, SalesPlay has no way of knowin
   <TenantImage
     src="/img/access_token.png"
     style={{
-      width: '100%',
+      maxWidth: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
       border: '1px solid #eee'
@@ -67,7 +67,7 @@ This is the key that unlocks the API. Without it, SalesPlay has no way of knowin
   <TenantImage
     src="/img/access_token_generate.png"
     style={{
-      width: '100%',
+      maxWidth: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
       border: '1px solid #eee'
@@ -93,7 +93,7 @@ This is the key that unlocks the API. Without it, SalesPlay has no way of knowin
   <TenantImage
     src="/img/postman_token.png"
     style={{
-      width: '100%',
+      maxWidth: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
       border: '1px solid #eee'

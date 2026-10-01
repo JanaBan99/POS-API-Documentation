@@ -20,3 +20,17 @@
   --ifm-color-primary-lighter: #5ee484;
   --ifm-color-primary-lightest: #7ee99a;
 }
+
+/* Navbar gradient: brand green #068a28 into brand purple #39005b, each stop mixed 15% with white (see salesplay.css). */
+:root { --brand-topbar: linear-gradient(79deg, #2b9c48 8%, #572674 59%); }
+
+/* Type and navbar measured on vendrex.com (computed styles, 1920px):
+   body Roboto 400; headings Roboto 600 in purple #39005b;
+   white navbar, menu text Lato 700 in brand green #09d83f. Fonts are loaded in docusaurus.config.js. */
+:root {
+  --ifm-font-family-base: Roboto, sans-serif;
+  --ifm-heading-font-family: Roboto, sans-serif;
+  --ifm-heading-font-weight: 600;
+}
+.navbar__title { font-family: Lato, sans-serif; font-weight: 700; }
+[data-theme='light'] h1, [data-theme='light'] h2, [data-theme='light'] h3 { color: #39005b; }

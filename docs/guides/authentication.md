@@ -124,6 +124,81 @@ else:
 ```
 
   </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$data = http_build_query([
+    'client_id'     => 'YOUR_APP_ID',
+    'client_secret' => 'YOUR_APP_SECRET',
+    'grant_type'    => 'authorization_code',
+    'code'          => 'YOUR_AUTHORIZATION_CODE',
+]);
+
+$ch = curl_init('https://api.salesplaypos.com/v1.0/oauth/token');
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+print_r(json_decode($response, true));
+```
+
+  </TabItem>
+  <TabItem value="java" label="Java">
+
+```java
+import java.net.URI;
+import java.net.http.*;
+import java.net.http.HttpRequest.BodyPublishers;
+
+HttpClient client = HttpClient.newHttpClient();
+
+String body = "client_id=YOUR_APP_ID"
+    + "&client_secret=YOUR_APP_SECRET"
+    + "&grant_type=authorization_code"
+    + "&code=YOUR_AUTHORIZATION_CODE";
+
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.salesplaypos.com/v1.0/oauth/token"))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(BodyPublishers.ofString(body))
+    .build();
+
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());
+```
+
+  </TabItem>
+  <TabItem value="csharp" label="C#">
+
+```csharp
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using var client = new HttpClient();
+
+var values = new Dictionary<string, string>
+{
+    { "client_id", "YOUR_APP_ID" },
+    { "client_secret", "YOUR_APP_SECRET" },
+    { "grant_type", "authorization_code" },
+    { "code", "YOUR_AUTHORIZATION_CODE" }
+};
+
+var content = new FormUrlEncodedContent(values);
+var response = await client.PostAsync("https://api.salesplaypos.com/v1.0/oauth/token", content);
+
+var responseString = await response.Content.ReadAsStringAsync();
+Console.WriteLine(responseString);
+```
+
+  </TabItem>
 </Tabs>
 
 #### Successful Response
@@ -213,6 +288,81 @@ if response.status_code == 200:
     print(response.json())
 else:
     print(f'Error: {response.status_code}')
+```
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+```php
+<?php
+
+$data = http_build_query([
+    'client_id'     => 'YOUR_APP_ID',
+    'client_secret' => 'YOUR_APP_SECRET',
+    'refresh_token' => 'YOUR_REFRESH_TOKEN',
+    'grant_type'    => 'refresh_token',
+]);
+
+$ch = curl_init('https://api.salesplaypos.com/v1.0/oauth/token');
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+print_r(json_decode($response, true));
+```
+
+  </TabItem>
+  <TabItem value="java" label="Java">
+
+```java
+import java.net.URI;
+import java.net.http.*;
+import java.net.http.HttpRequest.BodyPublishers;
+
+HttpClient client = HttpClient.newHttpClient();
+
+String body = "client_id=YOUR_APP_ID"
+    + "&client_secret=YOUR_APP_SECRET"
+    + "&refresh_token=YOUR_REFRESH_TOKEN"
+    + "&grant_type=refresh_token";
+
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.salesplaypos.com/v1.0/oauth/token"))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(BodyPublishers.ofString(body))
+    .build();
+
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());
+```
+
+  </TabItem>
+  <TabItem value="csharp" label="C#">
+
+```csharp
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using var client = new HttpClient();
+
+var values = new Dictionary<string, string>
+{
+    { "client_id", "YOUR_APP_ID" },
+    { "client_secret", "YOUR_APP_SECRET" },
+    { "refresh_token", "YOUR_REFRESH_TOKEN" },
+    { "grant_type", "refresh_token" }
+};
+
+var content = new FormUrlEncodedContent(values);
+var response = await client.PostAsync("https://api.salesplaypos.com/v1.0/oauth/token", content);
+
+var responseString = await response.Content.ReadAsStringAsync();
+Console.WriteLine(responseString);
 ```
 
   </TabItem>

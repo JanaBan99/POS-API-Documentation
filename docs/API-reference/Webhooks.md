@@ -76,7 +76,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 HttpRequest request = HttpRequest.newBuilder()
@@ -86,17 +86,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-ResponseEntity<String> response = restTemplate.exchange(
-    "https://api.salesplaypos.com/v1.0/webhooks?id=wh_abc123",
-    HttpMethod.GET, entity, String.class
-);
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var response = await client.GetAsync("https://api.salesplaypos.com/v1.0/webhooks?id=wh_abc123");
@@ -235,7 +225,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 String body = "url=https://myapp.com/webhooks/salesplay&type=inventory_levels.update&status=ENABLED&master_username=admin@mystore.com";
@@ -248,23 +238,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-body.add("url", "https://myapp.com/webhooks/salesplay");
-body.add("type", "inventory_levels.update");
-body.add("status", "ENABLED");
-body.add("master_username", "admin@mystore.com");
-
-HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
-ResponseEntity<String> response = restTemplate.postForEntity(
-    "https://api.salesplaypos.com/v1.0/webhooks", request, String.class
-);
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var values = new Dictionary<string, string>
@@ -375,7 +349,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 HttpRequest request = HttpRequest.newBuilder()
@@ -385,17 +359,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-ResponseEntity<String> response = restTemplate.exchange(
-    "https://api.salesplaypos.com/v1.0/webhooks?id=wh_abc123",
-    HttpMethod.DELETE, entity, String.class
-);
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var response = await client.DeleteAsync("https://api.salesplaypos.com/v1.0/webhooks?id=wh_abc123");

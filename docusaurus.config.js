@@ -93,6 +93,13 @@ const config = {
   // Writes robots.txt, llms.txt and llms-full.txt into build/<brand>/ (PLAN_gio.md Phase 1)
   plugins: [gioFiles],
 
+  // Each brand's web fonts, as measured on its marketing site; applied in src/css/tenants/<tenant>.css
+  stylesheets: [{
+    salesplay: 'https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap',
+    sellmo: 'https://fonts.googleapis.com/css2?family=Lato:wght@700;800&family=Roboto:wght@400;600;700&display=swap',
+    vendrex: 'https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:wght@400;600;700&display=swap',
+  }[TENANT]].filter(Boolean),
+
   // Tell crawlers where the machine-readable API description is
   headTags: [
     { tagName: 'link', attributes: { rel: 'alternate', type: 'application/json', href: '/api_spec.json', title: 'OpenAPI specification' } },
@@ -127,7 +134,9 @@ const config = {
         title: 'Developer Portal',
         logo: {
           alt: `${name} Logo`,
-          src: `img/${imgDir}/logo.png`,
+          // Navbar variant: taglines recoloured white (SalesPlay's "PLAY" brighter) for the blue gradient.
+          // logo.png stays the original, for white backgrounds (e.g. gio-files publisher logo).
+          src: `img/${imgDir}/logo-navbar.png`,
         },
         items: [],
       },

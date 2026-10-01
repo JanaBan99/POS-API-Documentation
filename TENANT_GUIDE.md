@@ -257,13 +257,14 @@ Plain Markdown images (`![alt](/img/x.png)`) are resolved the same way. Paths th
 
 ### Logo and favicon
 
-The navbar logo is always `static/img/<TENANT_IMG_DIR>/logo.png`. The favicon is `static/img/<TENANT_IMG_DIR>/<TENANT_FAVICON>` — the file name is in the `.env` because SalesPlay's is an `.ico` and the others are `.png`.
+The navbar logo is always `static/img/<TENANT_IMG_DIR>/logo-navbar.png`: the brand logo with any dark/grey text recoloured to read on the blue navbar gradient (taglines white). `logo.png` is the original, for white backgrounds (the structured-data publisher logo). The favicon is `static/img/<TENANT_IMG_DIR>/<TENANT_FAVICON>` — the file name is in the `.env` because SalesPlay's is an `.ico` and the others are `.png`.
 
 ### Current inventory
 
 | File | SalesPlay | Vendrex | Sellmo | Used on |
 |---|---|---|---|---|
-| `logo.png` | ✅ | ✅ | ✅ | navbar |
+| `logo-navbar.png` | ✅ | ✅ | ✅ | navbar |
+| `logo.png` | ✅ | ✅ | ✅ | structured-data publisher logo |
 | `favicon.ico` / `favicon.png` | ✅ `.ico` | ✅ `.png` | ✅ `.png` | browser tab |
 | `login.png` | ✅ | ✅ | ✅ | Getting Started |
 | `register.png` | ✅ | — step hidden | — step hidden | Getting Started |
@@ -372,7 +373,7 @@ Say the new brand is "Acme", key `acme`.
 
 1. **Facts file** — copy `.env.vendrex` to `.env.acme` and change every value. Set `TENANT=acme` and `TENANT_IMG_DIR=acme`.
 2. **Colours** — copy `src/css/tenants/vendrex.css` to `src/css/tenants/acme.css` and set the shades (§8).
-3. **Images** — create `static/img/acme/` with `logo.png`, the favicon (name it in `TENANT_FAVICON`) and the screenshots, using the same file names as the other folders (§6). Any you don't have yet will fall back to `shared/` — which only has the Postman screens — so capture the Backoffice ones before going live.
+3. **Images** — create `static/img/acme/` with `logo.png`, `logo-navbar.png` (see §6), the favicon (name it in `TENANT_FAVICON`) and the screenshots, using the same file names as the other folders (§6). Any you don't have yet will fall back to `shared/` — which only has the Postman screens — so capture the Backoffice ones before going live.
 4. **Commands** — in `package.json`, copy the three `*:sellmo` scripts (`start:sellmo`, `build:sellmo`, `preview:sellmo`) to `*:acme`, changing `TENANT=acme`, the generated-files dir names (`.docusaurus-acme`, `.docusaurus-build-acme`), the output folder (`build/acme`) and the ports (next free ones).
 5. **Brand switches** — if Acme's Backoffice wording matches Vendrex/Sellmo, nothing to do. If it matches SalesPlay, add `acme` to the `hide` lists that currently say `hide="salesplay"`, and remove it from none. If it's different again, add a third block.
 6. `npm run start:acme`, look through Getting Started and OAuth 2.0, then `npm run build:acme` and run the leak check from §10.

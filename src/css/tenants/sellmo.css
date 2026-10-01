@@ -18,3 +18,18 @@
   --ifm-color-primary-lighter: #77ade6;
   --ifm-color-primary-lightest: #8dbbeb;
 }
+
+/* Navbar gradient: #218cc3 → Sellmo blue #0e4d90, each stop mixed 15% with white (see salesplay.css). */
+:root { --brand-topbar: linear-gradient(79deg, #429dcc 8%, #3268a1 59%); }
+
+/* Type and navbar measured on sellmopos.com (computed styles, 1920px):
+   body Roboto 400 16px; hero headings Lato 800, section headings Roboto 600, both #0e4d90;
+   white navbar, menu text Lato 700 in #0e4d90. Fonts are loaded in docusaurus.config.js. */
+:root {
+  --ifm-font-family-base: Roboto, sans-serif;
+  --ifm-heading-font-family: Roboto, sans-serif;
+  --ifm-heading-font-weight: 600;
+}
+h1 { font-family: Lato, sans-serif; font-weight: 800; }
+.navbar__title { font-family: Lato, sans-serif; font-weight: 700; }
+[data-theme='light'] h1, [data-theme='light'] h2, [data-theme='light'] h3 { color: #0e4d90; }

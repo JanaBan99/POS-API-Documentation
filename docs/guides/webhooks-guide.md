@@ -104,7 +104,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 HttpRequest request = HttpRequest.newBuilder()
@@ -116,22 +116,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-Map<String, String> body = Map.of(
-    "url", "https://your-server.com/webhookss",
-    "event", "inventory_levels.update"
-);
-
-HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
-ResponseEntity<String> response = restTemplate.postForEntity(
-    "https://api.salesplaypos.com/v1.0/webhookss", request, String.class
-);
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var payload = new { url = "https://your-server/webhookss", @event = "inventory_levels.update" };
@@ -210,7 +195,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 HttpRequest request = HttpRequest.newBuilder()
@@ -220,19 +205,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-ResponseEntity<List> response = restTemplate.exchange(
-    "https://api.salesplaypos.com/v1.0/webhookss", 
-    HttpMethod.GET, 
-    entity, 
-    List.class
-);
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var response = await client.GetAsync("https://api.salesplaypos.com/v1.0/webhookss");
@@ -312,7 +285,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 HttpRequest request = HttpRequest.newBuilder()
@@ -324,20 +297,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-Map<String, String> body = Map.of(
-    "url", "https://your-server.com/webhookss-updated",
-    "event", "inventory_levels.update"
-);
-
-HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
-restTemplate.put("https://api.salesplaypos.com/v1.0/webhookss/WEBHOOK_ID", request);
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var payload = new { url = "...", @event = "..." };
@@ -395,7 +355,7 @@ echo curl_exec($ch);
 ```
 
   </TabItem>
-  <TabItem value="java" label="Java (Standard)">
+  <TabItem value="java" label="Java">
 
 ```java
 HttpRequest request = HttpRequest.newBuilder()
@@ -405,14 +365,7 @@ HttpRequest request = HttpRequest.newBuilder()
 ```
 
   </TabItem>
-  <TabItem value="spring" label="Spring Boot">
-
-```java
-restTemplate.delete("https://api.salesplaypos.com/v1.0/webhooks/WEBHOOK_ID");
-```
-
-  </TabItem>
-  <TabItem value="csharp" label="C# (.NET)">
+  <TabItem value="csharp" label="C#">
 
 ```csharp
 var response = await client.DeleteAsync("https://api.salesplaypos.com/v1.0/webhooks/WEBHOOK_ID");

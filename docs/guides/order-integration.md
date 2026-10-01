@@ -30,297 +30,124 @@ Orders represent sales transactions in the SalesPlay POS. Each order contains on
 Retrieve all orders or fetch a single order by ID. Send a `GET` request to `https://api.salesplaypos.com/v1.0/orders` with a Bearer token in the `Authorization` header and the filters (`order_numbers`, `shop_id`, `created_at_min`, `created_at_max`, `limit`, `cursor`) as a JSON body — query-string parameters are ignored.
 
 <Tabs>
+  <TabItem value="curl" label="cURL" default>
+
+```bash
+curl -X GET "https://api.salesplaypos.com/v1.0/orders" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "order_numbers": "string",
+  "shop_id": "string",
+  "created_at_min": "2025-01-15 10:30:00",
+  "created_at_max": "2025-01-15 10:30:00",
+  "limit": 10,
+  "cursor": "string"
+}'
+```
+
+  </TabItem>
+
+  <TabItem value="js" label="JavaScript">
+
+```javascript
+import https from "node:https";
+
+const payload = JSON.stringify({
+  "order_numbers": "string",
+  "shop_id": "string",
+  "created_at_min": "2025-01-15 10:30:00",
+  "created_at_max": "2025-01-15 10:30:00",
+  "limit": 10,
+  "cursor": "string"
+});
+
+const req = https.request("https://api.salesplaypos.com/v1.0/orders", {
+  method: "GET",
+  headers: {
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+    "Content-Type": "application/json",
+    "Content-Length": Buffer.byteLength(payload),
+  },
+}, (res) => {
+  let data = "";
+  res.on("data", (chunk) => (data += chunk));
+  res.on("end", () => console.log(JSON.parse(data)));
+});
+req.write(payload);
+req.end();
+```
+
+  </TabItem>
+
+  <TabItem value="python" label="Python">
+
+```python
+import requests
+
+url = "https://api.salesplaypos.com/v1.0/orders"
+headers = {"Authorization": "Bearer YOUR_ACCESS_TOKEN"}
+payload = {
+    "order_numbers": "string",
+    "shop_id": "string",
+    "created_at_min": "2025-01-15 10:30:00",
+    "created_at_max": "2025-01-15 10:30:00",
+    "limit": 10,
+    "cursor": "string"
+}
+res = requests.get(url, json=payload, headers=headers)
+print(res.json())
+```
+
+  </TabItem>
+
   <TabItem value="php" label="PHP">
 
 ```php
 <?php
-// ── Service ─────────────────────────────────────────
-// services/OrderService.php
-
-class OrderService
-{
-    private string $baseUrl;
-    private string $token;
-
-    public function __construct()
-    {
-        $this->baseUrl = $_ENV['SALESPLAY_BASE_URL'];
-        $this->token   = $_ENV['SALESPLAY_ACCESS_TOKEN'];
-    }
-
-    private function request(string $method, string $path, array $body = []): array
-    {
-        $ch = curl_init($this->baseUrl . $path);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $this->token,
-            'Content-Type: application/json',
-        ]);
-
-        if (!empty($body)) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
-        }
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return json_decode($response, true);
-    }
-
-    // Get all orders
-    public function getAll(): array
-    {
-        return $this->request('GET', '/orders');
-    }
-
-    // Get single order by ID
-    public function getById(string $id): array
-    {
-        return $this->request('GET', "/orders/{$id}");
-    }
-}
-
-// ── Controller ──────────────────────────────────────
-// controllers/OrderController.php
-
-class OrderController
-{
-    public function __construct(private OrderService $service) {}
-
-    // GET /orders
-    public function index(): void
-    {
-        $orders = $this->service->getAll();
-        header('Content-Type: application/json');
-        echo json_encode($orders);
-    }
-
-    // GET /orders?id={id}
-    public function show(string $id): void
-    {
-        $order = $this->service->getById($id);
-        header('Content-Type: application/json');
-        echo json_encode($order);
-    }
-}
-
-// ── Router ──────────────────────────────────────────
-// index.php
-
-$controller = new OrderController(new OrderService());
-$method     = $_SERVER['REQUEST_METHOD'];
-$id         = $_GET['id'] ?? null;
-
-if ($method === 'GET' && $id) {
-    $controller->show($id);
-} elseif ($method === 'GET') {
-    $controller->index();
-}
+$ch = curl_init("https://api.salesplaypos.com/v1.0/orders");
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode({"order_numbers": "string", "shop_id": "string", "created_at_min": "2025-01-15 10:30:00", "created_at_max": "2025-01-15 10:30:00", "limit": 10, "cursor": "string"}));
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Authorization: Bearer YOUR_ACCESS_TOKEN",
+    "Content-Type: application/json",
+]);
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
 ```
 
   </TabItem>
-  <TabItem value="laravel" label="Laravel">
 
-```php
-<?php
-// ── Service ─────────────────────────────────────────
-// app/Services/OrderService.php
-
-namespace App\Services;
-
-use Illuminate\Support\Facades\Http;
-
-class OrderService
-{
-    private function client()
-    {
-        return Http::withToken(config('salesplay.access_token'))
-                   ->acceptJson()
-                   ->baseUrl(config('salesplay.base_url'));
-    }
-
-    // Get all orders
-    public function getAll(): array
-    {
-        $response = $this->client()->get('/orders');
-        $response->throw();
-        return $response->json();
-    }
-
-    // Get single order by ID
-    public function getById(string $id): array
-    {
-        $response = $this->client()->get("/orders/{$id}");
-        $response->throw();
-        return $response->json();
-    }
-}
-
-// ── Controller ──────────────────────────────────────
-// app/Http/Controllers/OrderController.php
-
-// GET /api/orders
-public function index(): JsonResponse
-{
-    $orders = $this->service->getAll();
-    return response()->json($orders);
-}
-
-// GET /api/orders/{id}
-public function show(string $id): JsonResponse
-{
-    $order = $this->service->getById($id);
-    return response()->json($order);
-}
-
-// ── Routes ──────────────────────────────────────────
-// routes/api.php
-
-Route::get('/orders',      [OrderController::class, 'index']);
-Route::get('/orders/{id}', [OrderController::class, 'show']);
-```
-
-  </TabItem>
-  <TabItem value="express" label="Node.js / Express">
-
-```javascript
-// ── Service ─────────────────────────────────────────
-// services/orderService.js
-
-const axios = require('axios');
-const { baseUrl, accessToken } = require('../config/salesplay');
-
-const client = axios.create({
-  baseURL: baseUrl,
-  headers: { Authorization: `Bearer ${accessToken}` },
-});
-
-// Get all orders
-const getAll = async () => {
-  const { data } = await client.get('/orders');
-  return data;
-};
-
-// Get single order by ID
-const getById = async (id) => {
-  const { data } = await client.get(`/orders/${id}`);
-  return data;
-};
-
-module.exports = { getAll, getById };
-
-// ── Controller ──────────────────────────────────────
-// controllers/orderController.js
-
-// GET /api/orders
-const index = async (req, res) => {
-  const orders = await orderService.getAll();
-  res.json(orders);
-};
-
-// GET /api/orders/:id
-const show = async (req, res) => {
-  const order = await orderService.getById(req.params.id);
-  res.json(order);
-};
-
-// ── Routes ──────────────────────────────────────────
-// routes/orders.js
-
-router.get('/',    asyncHandler(ctrl.index));
-router.get('/:id', asyncHandler(ctrl.show));
-```
-
-  </TabItem>
-  <TabItem value="fastapi" label="Python / FastAPI">
-
-```python
-# ── Service ─────────────────────────────────────────
-# services/order_service.py
-
-import httpx
-from config.salesplay import settings
-
-HEADERS = {"Authorization": f"Bearer {settings.access_token}"}
-
-# Get all orders
-async def get_all() -> dict:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            f"{settings.base_url}/orders",
-            headers=HEADERS
-        )
-        response.raise_for_status()
-        return response.json()
-
-# Get single order by ID
-async def get_by_id(order_id: str) -> dict:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            f"{settings.base_url}/orders/{order_id}",
-            headers=HEADERS
-        )
-        response.raise_for_status()
-        return response.json()
-
-# ── Controller ──────────────────────────────────────
-# controllers/order_controller.py
-
-# GET /api/orders
-@router.get("/")
-async def index():
-    return await service.get_all()
-
-# GET /api/orders/{id}
-@router.get("/{order_id}")
-async def show(order_id: str):
-    return await service.get_by_id(order_id)
-```
-
-  </TabItem>
-  <TabItem value="spring" label="Spring Boot">
+  <TabItem value="java" label="Java">
 
 ```java
-// ── Service ─────────────────────────────────────────
-// services/OrderService.java
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.salesplaypos.com/v1.0/orders"))
+    .header("Authorization", "Bearer YOUR_ACCESS_TOKEN")
+    .header("Content-Type", "application/json")
+    .method("GET", HttpRequest.BodyPublishers.ofString(payload))
+    .build();
 
-@Service
-public class OrderService {
-
-    // Get all orders
-    public String getAll() {
-        HttpEntity<Void> entity = new HttpEntity<>(headers());
-        return restTemplate.exchange(
-            url("/orders"), HttpMethod.GET, entity, String.class
-        ).getBody();
-    }
-
-    // Get single order by ID
-    public String getById(String id) {
-        HttpEntity<Void> entity = new HttpEntity<>(headers());
-        return restTemplate.exchange(
-            url("/orders/" + id), HttpMethod.GET, entity, String.class
-        ).getBody();
-    }
-}
-
-// ── Controller ──────────────────────────────────────
-// controllers/OrderController.java
-
-// GET /orders
-@GetMapping
-public ResponseEntity<String> index() {
-    return ResponseEntity.ok(orderService.getAll());
-}
-
-// GET /orders/{id}
-@GetMapping("/{id}")
-public ResponseEntity<String> show(@PathVariable String id) {
-    return ResponseEntity.ok(orderService.getById(id));
-}
+HttpResponse<String> response = client.send(request,
+    HttpResponse.BodyHandlers.ofString());
 ```
 
   </TabItem>
+
+  <TabItem value="csharp" label="C#">
+
+```csharp
+var request = new HttpRequestMessage(new HttpMethod("GET"), "https://api.salesplaypos.com/v1.0/orders");
+request.Headers.Add("Authorization", "Bearer YOUR_ACCESS_TOKEN");
+request.Content = new StringContent(payload, Encoding.UTF8, "application/json");
+var response = await client.SendAsync(request);
+var body = await response.Content.ReadAsStringAsync();
+```
+
+  </TabItem>
+
 </Tabs>
 
 - See [**Get orders**](/API-reference/orders/get-orders) in API reference.
