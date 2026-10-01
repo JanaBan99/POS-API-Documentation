@@ -59,7 +59,6 @@ then edit each one. `.env.example` is filled with the SalesPlay values, so `.env
 | `TENANT_BACKOFFICE_URL` | where merchants log in | `https://platform.vendrex.com/` | `https://sellmo.backofficewebportal.com/` |
 | `TENANT_DEVELOPER_URL` | URL of the docs site itself | `https://developer.vendrex.com` | `https://developer.backofficewebportal.com` |
 | `TENANT_SITE_TITLE` | browser-tab title | `Vendrex Documentation` | `Sellmo Documentation` |
-| `TENANT_POSTMAN_URL` | Postman collection download link | `https://developer.vendrex.com/download_postman_collection.php` | `https://developer.backofficewebportal.com/download_postman_collection.php` |
 | `TENANT_FAVICON` | favicon file name in the brand's image folder | `favicon.png` | `favicon.png` |
 | `TENANT_IMG_DIR` | folder under `static/img/` with the brand's screenshots | `vendrex` | `selmo` |
 

@@ -32,7 +32,6 @@ export const profile = {
   backofficeUrl: env('TENANT_BACKOFFICE_URL'),
   developerUrl: env('TENANT_DEVELOPER_URL'),
   siteTitle: env('TENANT_SITE_TITLE'),
-  postmanUrl: env('TENANT_POSTMAN_URL'),
   favicon: env('TENANT_FAVICON'),
   imgDir: env('TENANT_IMG_DIR'),
 };
@@ -44,7 +43,7 @@ const replacements = [
   [/https:\/\/api\.salesplaypos\.com\/v1\.0/g, profile.apiBaseUrl],
   [/https:\/\/api\.salesplaypos\.com/g, new URL(profile.apiBaseUrl).origin],
   [/https:\/\/cloud\.salesplaypos\.com\/?/g, profile.backofficeUrl],
-  [/https:\/\/developer\.salesplay\.com\/download_postman_collection\.php/g, profile.postmanUrl],
+  [/https:\/\/developer\.salesplay\.com\/download_postman_collection\.php/g, `/${profile.name}_postman_collection.json`], // built per brand by docusaurus.config.js
   [/https:\/\/developer\.salesplay\.com/g, profile.developerUrl],
   [/SalesPlay/g, profile.name],
   [/SALESPLAY/g, profile.name.toUpperCase()],

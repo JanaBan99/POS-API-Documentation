@@ -8,12 +8,25 @@ import { statSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 // api_spec.yaml is always written as SalesPlay. Rewrite it for this brand with the
 // same replaceText() rules every .md page gets, then hand Redocly the JSON it
 // renders from. A broken spec now fails the build instead of leaving a stale file.
+// Generated files go to a per-brand folder (served next to static/, see staticDirectories)
+// so a build or dev server of one brand never overwrites another brand's copy.
+const brandStatic = `.brand-static/${profile.tenant}`;
 console.log('Generating api_spec.json from api_spec.yaml...');
-mkdirSync('static', { recursive: true });
+mkdirSync(brandStatic, { recursive: true });
 writeFileSync(
-  'static/api_spec.json',
+  `${brandStatic}/api_spec.json`,
   JSON.stringify(yaml.load(replaceText(readFileSync('api_spec.yaml', 'utf8'))), null, 2),
 );
+
+// postman_collection.json is the portal's brand-neutral collection. Name it after this
+// brand and pre-fill baseUrl, so it works as soon as it is imported (Token stays blank).
+const postman = JSON.parse(readFileSync('postman_collection.json', 'utf8'));
+postman.info.name = `${profile.name} Postman Collection`;
+postman.variable = [
+  { key: 'baseUrl', value: profile.apiBaseUrl, type: 'string' },
+  { key: 'Token', value: '', type: 'string' },
+];
+writeFileSync(`${brandStatic}/${profile.name}_postman_collection.json`, JSON.stringify(postman, null, 2));
 
 // All brand facts come from .env.<TENANT> via tenant.js (single source of truth).
 const { tenant: TENANT, name, imgDir } = profile;
@@ -38,6 +51,7 @@ const config = {
 
   url: profile.developerUrl,
   baseUrl: '/',
+  staticDirectories: ['static', brandStatic],
 
   // ✅ Expose TENANT to components via useDocusaurusContext
   customFields: {

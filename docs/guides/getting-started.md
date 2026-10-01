@@ -24,7 +24,7 @@ Download and install Postman from [https://www.getpostman.com](https://www.getpo
 
 Now that Postman is ready, you don't have to build every request from scratch. SalesPlay provides a pre-built Postman Collection with all the API endpoints already configured and waiting for you.
 
-[Get the SalesPlay API Postman Collection](https://developer.salesplay.com/download_postman_collection.php) and import it into Postman. In seconds, you'll have the entire API at your fingertips.
+<a href="/SalesPlay_postman_collection.json" download="SalesPlay_postman_collection.json">Get the SalesPlay Postman Collection</a> and import it into Postman. In seconds, you'll have the entire API at your fingertips.
 
 ---
 
@@ -67,5 +67,5 @@ The token is missing, invalid, expired, or was pasted with extra spaces. Generat
 
 ### Is there a Postman collection for the SalesPlay API?
 
-Yes — download it from [https://developer.salesplay.com/download_postman_collection.php](https://developer.salesplay.com/download_postman_collection.php) and import it into Postman; it contains every endpoint with the `baseUrl` and `Token` variables already wired in.
+Yes — <a href="/SalesPlay_postman_collection.json" download="SalesPlay_postman_collection.json">download the SalesPlay Postman Collection</a> and import it into Postman; it contains every endpoint, with `baseUrl` already set to `https://api.salesplaypos.com/v1.0` — you only fill in `Token`.
 

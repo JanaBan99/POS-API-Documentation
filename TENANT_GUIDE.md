@@ -136,7 +136,6 @@ TENANT_API_BASE_URL=https://api.backofficewebportal.com/v1.0
 TENANT_BACKOFFICE_URL=https://sellmo.backofficewebportal.com/
 TENANT_DEVELOPER_URL=https://developer.backofficewebportal.com
 TENANT_SITE_TITLE=Sellmo Documentation
-TENANT_POSTMAN_URL=https://developer.backofficewebportal.com/download_postman_collection.php
 TENANT_FAVICON=favicon.png
 TENANT_IMG_DIR=selmo
 ```
@@ -152,7 +151,6 @@ TENANT_IMG_DIR=selmo
 | `TENANT_BACKOFFICE_URL` | Where merchants log in | "Log in to the Backoffice at …" links |
 | `TENANT_DEVELOPER_URL` | The address of the documentation site itself | Page metadata, links to the docs site |
 | `TENANT_SITE_TITLE` | Browser-tab title | Tab title, search result headings |
-| `TENANT_POSTMAN_URL` | Download link for the Postman collection | Getting Started page |
 | `TENANT_FAVICON` | File name of the favicon inside the brand's image folder | Browser tab icon |
 | `TENANT_IMG_DIR` | Name of the brand's folder under `static/img/` | All screenshots, logo, favicon |
 
@@ -178,7 +176,7 @@ While each page is compiled, its text passes through a fixed list of substitutio
 | 1 | `https://api.salesplaypos.com/v1.0` | the brand's API base URL | `TENANT_API_BASE_URL` |
 | 2 | `https://api.salesplaypos.com` (anything else on the API host, e.g. a `v2.0` example) | the brand's API host | derived from `TENANT_API_BASE_URL` |
 | 3 | `https://cloud.salesplaypos.com` or `https://cloud.salesplaypos.com/` | the brand's Backoffice URL | `TENANT_BACKOFFICE_URL` |
-| 4 | `https://developer.salesplay.com/download_postman_collection.php` | the brand's Postman link | `TENANT_POSTMAN_URL` |
+| 4 | `https://developer.salesplay.com/download_postman_collection.php` | `/<Brand>_postman_collection.json` (built per brand) | — |
 | 5 | `https://developer.salesplay.com` | the brand's docs site | `TENANT_DEVELOPER_URL` |
 | 6 | `SalesPlay` | the brand name | `TENANT_NAME` |
 | 7 | `SALESPLAY` | the brand name in capitals | `TENANT_NAME` |
@@ -357,7 +355,7 @@ Use `<TenantBlock>` pairs as in §7.
 Edit `src/css/tenants/<brand>.css` (§8).
 
 **…update the Postman collection link?**
-`TENANT_POSTMAN_URL` in the `.env` file.
+Nothing per brand: replace `postman_collection.json` in the repo root with the new export. The build writes it as `<Brand>_postman_collection.json` and fills `baseUrl` from `TENANT_API_BASE_URL`.
 
 **…check that a build has no brand leaks?**
 Run `npm run check` after building (or `npm run check:sellmo` for one brand). It fails with one line per problem if any built file mentions another brand, a machine file (`robots.txt`, `llms.txt`, `llms-full.txt`, `sitemap.xml`, `api_spec.json`) is missing, a link in `llms.txt` points nowhere, or a page has no `description`, more than one H1, or an emoji heading. The script is `tools/gio_check.mjs`.

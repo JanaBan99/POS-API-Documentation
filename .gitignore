@@ -28,4 +28,4 @@ yarn-error.log*
 .docusaurus-*
 
 # generated per brand on every build/start
-/static/api_spec.json
+/.brand-static/

@@ -243,7 +243,6 @@ TENANT_API_BASE_URL=https://api.salesplaypos.com/v1.0
 TENANT_BACKOFFICE_URL=https://cloud.salesplaypos.com/
 TENANT_DEVELOPER_URL=https://developer.salesplay.com
 TENANT_SITE_TITLE=SalesPlay Documentation
-TENANT_POSTMAN_URL=https://developer.salesplay.com/download_postman_collection.php
 TENANT_FAVICON=favicon.ico
 TENANT_IMG_DIR=salesplay
 ```
@@ -257,7 +256,6 @@ TENANT_API_BASE_URL=https://api.vendrex.com/v1.0
 TENANT_BACKOFFICE_URL=https://platform.vendrex.com/
 TENANT_DEVELOPER_URL=https://developer.vendrex.com
 TENANT_SITE_TITLE=Vendrex Documentation
-TENANT_POSTMAN_URL=https://developer.vendrex.com/download_postman_collection.php
 TENANT_FAVICON=favicon.png
 TENANT_IMG_DIR=vendrex
 ```
@@ -271,7 +269,6 @@ TENANT_API_BASE_URL=https://api.backofficewebportal.com/v1.0
 TENANT_BACKOFFICE_URL=https://sellmo.backofficewebportal.com/
 TENANT_DEVELOPER_URL=https://developer.backofficewebportal.com
 TENANT_SITE_TITLE=Sellmo Documentation
-TENANT_POSTMAN_URL=https://developer.backofficewebportal.com/download_postman_collection.php
 TENANT_FAVICON=favicon.png
 TENANT_IMG_DIR=selmo
 ```
@@ -289,7 +286,6 @@ A commented template, `.env.example`, is also in the zip.
 | `TENANT_BACKOFFICE_URL` | link to the brand's back office |
 | `TENANT_DEVELOPER_URL` | the site's own canonical URL (used in `sitemap.xml` and structured data) |
 | `TENANT_SITE_TITLE` | browser tab title |
-| `TENANT_POSTMAN_URL` | download link for that brand's Postman collection |
 | `TENANT_FAVICON` | favicon file name inside `static/img/<TENANT_IMG_DIR>/` |
 | `TENANT_IMG_DIR` | which screenshot/logo folder under `static/img/` this brand uses |
 

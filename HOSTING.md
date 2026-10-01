@@ -66,7 +66,7 @@ Measured on a real build, not assumed.
 Two useful consequences:
 
 - The API base URL stays `https://api.vendrex.com/v1.0` no matter where you host the documentation. Hosting location and API location are independent.
-- The Postman download link keeps pointing at the real developer portal (`TENANT_POSTMAN_URL`), which is correct — the collection lives there, not on this host.
+- The Postman collection is served by this site as `/<Brand>_postman_collection.json` (e.g. `/Vendrex_postman_collection.json`), built per brand from `postman_collection.json` (brand name and `baseUrl` filled in).
 
 ---
 
